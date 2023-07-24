@@ -17,7 +17,7 @@ const userStatus_phone = {
 
 
 
-var socket = io("wss://192.168.1.6:3000");
+var socket = io("wss://192.168.1.9:3000");
 socket.emit("userInformation", userStatus_phone);
 const videoGrid = document.getElementById("video-grid");
 const video = document.createElement("video");

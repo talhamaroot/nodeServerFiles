@@ -12,7 +12,7 @@ window.onload = (e) => {
     mainFunction(500);
 };
 
-var socket = io("wss://192.168.1.6:3000");
+var socket = io("wss://192.168.1.9:3000");
 socket.emit("userInformation", userStatus_phone);
 
 
