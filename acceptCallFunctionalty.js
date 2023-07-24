@@ -9,7 +9,7 @@ const userStatus = {
 
 
 
-var socket = io("wss://192.168.1.6:3000");
+var socket = io("https://chat-api-d1ri.onrender.com:3000");
 socket.emit("userInformation", userStatus);
 socket.on("memberstatus", function(data) {
     console.log("talha")
