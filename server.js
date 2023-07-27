@@ -5,7 +5,7 @@ const express = require('express');
 
 const options = {
     key: fs.readFileSync('node_chat_server.pem', 'utf8'),
-    cert: fs.readFileSync('node_chat_server.pem', 'utf8')
+    cert: fs.readFileSync('cert.pem', 'utf8')
 };
 
 const app = express();
