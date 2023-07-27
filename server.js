@@ -4,8 +4,8 @@ const cors = require('cors');
 const express = require('express');
 
 const options = {
-    key: fs.readFileSync('node_chat_server.pem', 'utf8'),
-    cert: fs.readFileSync('cert.pem', 'utf8')
+    key: fs.readFileSync('node_chat_server.pem'),
+    cert: fs.readFileSync('self_signed_cert.pem')
 
 };
 
