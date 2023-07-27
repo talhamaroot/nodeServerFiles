@@ -3,11 +3,15 @@ const fs = require('fs');
 const cors = require('cors');
 const express = require('express');
 
-const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/ec2-54-174-47-233.compute-1.amazonaws.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/ec2-54-174-47-233.compute-1.amazonaws.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/ec2-54-174-47-233.compute-1.amazonaws.com/chain.pem', 'utf8');
 
+const options = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+};
 const app = express();
 const server = https.createServer(options, app);
 const { ExpressPeerServer } = require("peer");
