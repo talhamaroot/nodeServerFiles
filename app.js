@@ -12,7 +12,7 @@ window.onload = (e) => {
     mainFunction(500);
 };
 
-var socket = io("wss://192.168.1.9:3000");
+var socket = io("wss://192.168.8.102:3000");
 socket.emit("userInformation", userStatus_phone);
 
 
@@ -106,7 +106,11 @@ function endCall(e) {
     var data = $(".call_end").attr("data-callerid");
 
     socket.emit("stopCall", data);
-    window.location = "users.php";
+    setTimeout(() => {
+
+            window.location = "users.php";
+        },
+        500)
 }
 
 

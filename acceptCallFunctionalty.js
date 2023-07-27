@@ -9,7 +9,7 @@ const userStatus = {
 
 
 
-var socket = io("wss://192.168.1.9:3000");
+var socket = io("wss://192.168.8.102:3000");
 socket.emit("userInformation", userStatus);
 socket.on("memberstatus", function(data) {
     console.log("talha")

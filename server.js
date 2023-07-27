@@ -131,8 +131,8 @@ io.on("connection", function(socket) {
         for (const id in socketsStatus) {
 
 
+            // console.log(data);
             if (socketsStatus[id].username == data) {
-
                 callback("Active Now");
 
 

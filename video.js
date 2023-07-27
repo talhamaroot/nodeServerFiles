@@ -1,10 +1,3 @@
-if ($("#sender").val() == 1) {
-    setTimeout(() => {
-            window.location = window.location.href.split("&")[0];
-        },
-        2000)
-
-}
 const userStatus_phone = {
     microphone: true,
     mute: false,
@@ -17,7 +10,7 @@ const userStatus_phone = {
 
 
 
-var socket = io("wss://192.168.1.9:3000");
+var socket = io("wss://192.168.8.102:3000");
 socket.emit("userInformation", userStatus_phone);
 const videoGrid = document.getElementById("video-grid");
 const video = document.createElement("video");
@@ -25,34 +18,41 @@ video.classList.add("otherClientVideo");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 myVideo.classList.add("myVideo");
-const peer = new Peer(undefined, { path: "/peerjs", host: "192.168.1.6", port: "3000", });
+const peer = new Peer(undefined, { path: "/peerjs", host: "192.168.8.102", port: "3000", });
+var flag = 1;
 let myVideoStream;
 navigator.mediaDevices.getUserMedia({ audio: true, video: true, }).then((stream) => {
     console.log("reached")
+
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
     peer.on("call", (call) => {
         call.answer(stream);
-
-
-
         $(".loading").text("")
+        flag = 0;
         call.on("stream", (userVideoStream) => { addVideoStream(video, userVideoStream); });
     });
     socket.on("user-connected", (userId) => { connectToNewUser(userId, stream); });
 
 });
+
 const connectToNewUser = (userId, stream) => {
-
+    const call = peer.call(userId, stream)
+    call.on("stream", (userVideoStream) => { addVideoStream(video, userVideoStream); });
+    $(".loading").text("")
     setTimeout(() => {
-        const call = peer.call(userId, stream)
 
-        const video = document.createElement("video");
-        call.on("stream", (userVideoStream) => { addVideoStream(video, userVideoStream); });
+        if (flag == 1) {
+            const call = peer.call(userId, stream)
+            call.on("stream", (userVideoStream) => { addVideoStream(video, userVideoStream); });
+            $(".loading").text("")
 
-        $(".loading").text("")
-    }, 2000)
+        } else {
+            location.reload()
+        }
+    }, 1000);
+
 };
 peer.on("open", (id) => {
     console.log("run")
@@ -68,6 +68,7 @@ const addVideoStream = (video, stream) => {
 
 socket.on("callStoped", function(data) {
     console.log("callstops");
+
     window.location = "users.php";
 
 });
@@ -119,11 +120,15 @@ function toggleVideo(e) {
     emitUserInformation();
 }
 
-async function endCall(e) {
+function endCall(e) {
     var data = $(".call_end").attr("data-callerid");
 
-    await socket.emit("stopCall", data);
-    window.location = "users.php";
+    socket.emit("stopCall", data);
+    setTimeout(() => {
+
+            window.location = "users.php";
+        },
+        500)
 }
 
 
