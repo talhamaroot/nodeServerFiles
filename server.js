@@ -128,7 +128,7 @@ io.on("connection", function(socket) {
     });
     socket.on("open_chat", function(data) {
         console.log(socket.id)
-        socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[socket.id].username);
+        socket.broadcast.to(socket.id).emit("openChat", socketsStatus[socket.id].username);
         for (const id in socketsStatus) {
 
 
