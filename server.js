@@ -142,6 +142,7 @@ io.on("connection", function(socket) {
 
     });
     socket.on("messageSend", function(data) {
+        console.log(socket.id)
         socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[socket.id].username);
         for (const id in socketsStatus) {
 
