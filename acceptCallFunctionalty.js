@@ -10,6 +10,15 @@ const userStatus = {
 
 
 var socket = io("wss://54.174.47.233:3000");
+socket.on("error", function(error) {
+    // Handle connection errors
+    window.location = "https://54.174.47.233:3000";
+});
+
+socket.on("connect_error", function(error) {
+    // Handle connection errors specifically
+    window.location = "https://54.174.47.233:3000";
+});
 socket.emit("userInformation", userStatus);
 socket.on("memberstatus", function(data) {
     console.log("talha")

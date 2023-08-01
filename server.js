@@ -126,6 +126,36 @@ io.on("connection", function(socket) {
 
         console.log("callRequestSend")
     });
+    socket.on("open_chat", function(data) {
+
+        for (const id in socketsStatus) {
+
+
+            if (socketsStatus[id].username == data) {
+
+
+                socket.broadcast.to(id).emit("openChat", socketsStatus[socketId].username);
+
+            }
+        }
+
+
+    });
+    socket.on("messageSend", function(data) {
+
+        for (const id in socketsStatus) {
+
+
+            if (socketsStatus[id].username == data) {
+
+
+                socket.broadcast.to(id).emit("messageReceive", socketsStatus[socketId].username);
+
+            }
+        }
+
+
+    });
     socket.on("checkStatus", function(data, callback) {
         var status = 0;
         callback = typeof callback == "function" ? callback : () => {};

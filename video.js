@@ -18,7 +18,7 @@ video.classList.add("otherClientVideo");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 myVideo.classList.add("myVideo");
-const peer = new Peer(undefined, { path: "/peerjs", host: "192.168.8.102", port: "3000", });
+const peer = new Peer(undefined, { path: "/peerjs", host: "54.174.47.233", port: "3000", });
 var flag = 1;
 let myVideoStream;
 navigator.mediaDevices.getUserMedia({ audio: true, video: true, }).then((stream) => {
@@ -49,7 +49,7 @@ const connectToNewUser = (userId, stream) => {
             $(".loading").text("")
 
         } else {
-            location.reload()
+            // location.reload()
         }
     }, 1000);
 
