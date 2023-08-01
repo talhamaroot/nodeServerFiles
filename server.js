@@ -150,6 +150,7 @@ io.on("connection", function(socket) {
 
 
                 socket.broadcast.to(id).emit("messageReceive", socketsStatus[socketId].username);
+                socket.broadcast.to(socketId).emit("messageReceive", socketsStatus[socketId].username);
 
             }
         }
