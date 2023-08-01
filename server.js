@@ -142,7 +142,7 @@ io.on("connection", function(socket) {
 
     });
     socket.on("messageSend", function(data) {
-
+        socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[socket.id].username);
         for (const id in socketsStatus) {
 
 
@@ -150,7 +150,7 @@ io.on("connection", function(socket) {
 
 
                 socket.broadcast.to(id).emit("messageReceive", socketsStatus[socketId].username);
-                socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[id].username);
+
 
             }
         }
