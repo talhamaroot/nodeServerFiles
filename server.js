@@ -127,7 +127,7 @@ io.on("connection", function(socket) {
         console.log("callRequestSend")
     });
     socket.on("open_chat", function(data) {
-
+        socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[socket.id].username);
         for (const id in socketsStatus) {
 
 
@@ -142,7 +142,6 @@ io.on("connection", function(socket) {
 
     });
     socket.on("messageSend", function(data) {
-        console.log(socket.id)
         socket.broadcast.to(socket.id).emit("messageReceive", socketsStatus[socket.id].username);
         for (const id in socketsStatus) {
 
